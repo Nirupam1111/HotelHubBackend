@@ -33,7 +33,10 @@ public class UserService implements IUserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         System.out.println(user.getPassword());
         Role userRole = roleRepository.findByName("ROLE_USER").get();
-        user.setRoles(Collections.singletonList(userRole));
+        if (user.getEmail().equals("nirupamsur9@gmail.com"))
+            user.setRoles(Collections.singletonList(roleRepository.findByName("ROLE_ADMIN").get()));
+        else
+            user.setRoles(Collections.singletonList(userRole));
         return userRepository.save(user);
     }
 
